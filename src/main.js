@@ -9,6 +9,7 @@ import ElementUI from 'element-ui';
 import Vuex from 'vuex';
 import HelloWorld from './components/HelloWorld.vue';
 import Head from './components/Head.vue';
+import Seller from './components/food/Seller.vue';
 
 import './common/stylus/index.styl';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -31,7 +32,12 @@ const routes = [
   }, {
     path: '/head',
     component: Head,
-    name: '',
+    name: 'Head',
+    hidden: true
+  }, {
+    path: '/seller',
+    component: Seller,
+    name: 'Seller',
     hidden: true
   }
 ];

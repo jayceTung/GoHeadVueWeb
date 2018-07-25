@@ -1,5 +1,6 @@
 <template>
   <div class="login-wrap">
+    <!--<img v-bind:src="seller.avatar"/>-->
     <el-form  label-position="left" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm login-container">
       <h3 class="title">用户登录</h3>
       <el-form-item prop="username">
@@ -41,6 +42,10 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            console.log(this.ruleForm);
+            const res = requestLogin(this.ruleForm);
+            console.log(res.status);
+
             setTimeout(() => {
               this.logining = false;
               this.$router.push({ path: '/food' });//如果请求成功就让他3秒跳转路由
