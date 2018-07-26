@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <div class="tab-item">
-      <router-link to="/goods">商品</router-link>
-    </div>
-    <div class="tab-item">
-      <router-link to="/ratings">评论</router-link>
-    </div>
-    <div class="tab-item">
-      <router-link to="/seller">商家</router-link>
-    </div>
+    <!--<div class="tab-item">-->
+      <!--<router-link to="/goods">商品</router-link>-->
+    <!--</div>-->
+    <!--<div class="tab-item">-->
+      <!--<router-link to="/ratings">评论</router-link>-->
+    <!--</div>-->
+    <!--<div class="tab-item">-->
+      <!--<router-link to="/seller">商家</router-link>-->
+    <!--</div>-->
     <router-view :seller="seller"></router-view>
   </div>
 </template>

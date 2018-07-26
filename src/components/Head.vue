@@ -3,8 +3,8 @@
     <!--<img v-bind:src="seller.avatar"/>-->
     <el-form  label-position="left" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm login-container">
       <h3 class="title">用户登录</h3>
-      <el-form-item prop="username">
-        <el-input type="text" v-model="ruleForm.username"  auto-complete="off" placeholder="账号"></el-input>
+      <el-form-item prop="userName">
+        <el-input type="text" v-model="ruleForm.userName"  auto-complete="off" placeholder="账号"></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input type="password"  v-model="ruleForm.password" auto-complete="off" placeholder="密码"></el-input>
@@ -18,18 +18,18 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { requestLogin } from '../api/api';
+  import { requestLogin, getUserInfo } from '../api/api';
   const ERR_OK = 0;
   export default {
     data() {
       return {
         logining: false, //定义loading默认为false
         ruleForm: {            //username和password默认为空
-          username: '',
+          userName: '',
           password:''
         },
         rules: {          //rules前端验证
-          username: [
+          userName: [
             { required: true, message: '请输入账号', trigger: 'blur' },
           ],
           password: [
@@ -44,7 +44,10 @@
           if (valid) {
             console.log(this.ruleForm);
             const res = requestLogin(this.ruleForm);
-            console.log(res.status);
+//            const s = getUserInfo(2);
+            res.then(response => {
+              console.log(response.data);
+            })
 
             setTimeout(() => {
               this.logining = false;

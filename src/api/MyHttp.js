@@ -68,6 +68,7 @@ axios.interceptors.response.use(response => {
   return Promise.resolve(err.response)
 })
 
+axios.defaults.baseURL = process.env.BASE_API
 // axios.defaults.baseURL = '/api'
 //设置默认请求头
 axios.defaults.headers = {
