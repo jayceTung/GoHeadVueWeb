@@ -1,29 +1,35 @@
 import { login, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, getUsername, setUsername, getAvatar,
+  setAvatar, getRoles, setRoles, getUserId, setUserId, removeAll } from '@/utils/auth'
 
 const user = {
   state: {
     token: getToken(),
-    name: '',
-    avatar: '',
-    roles: [],
-    userId: '',
+    name: getUsername(),
+    avatar: getAvatar(),
+    roles: getRoles(),
+    userId: getUserId,
   },
 
   mutations: {
     SET_TOKEN: (state, token) => {
+      setToken(token)
       state.token = token
     },
     SET_NAME: (state, name) => {
+      setUsername(name)
       state.name = name
     },
     SET_AVATAR: (state, avatar) => {
+      setAvatar(avatar)
       state.avatar = avatar
     },
     SET_ROLES: (state, roles) => {
+      setRoles(roles)
       state.roles = roles
     },
     SET_USER_ID: (state, userId) => {
+      setUserId(userId)
       state.userId = userId
     },
 
@@ -36,7 +42,6 @@ const user = {
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response.data
-          setToken(response.token)
           commit('SET_ROLES', data.roleName)
           commit('SET_TOKEN', response.token)
           commit('SET_USER_ID', data.id)
@@ -68,7 +73,7 @@ const user = {
         commit('SET_ROLES', [])
         commit('SET_NAME', '')
         commit('SET_USER_ID', '')
-        removeToken()
+        removeAll()
         resolve()
       })
     },
@@ -80,7 +85,7 @@ const user = {
         commit('SET_ROLES', [])
         commit('SET_NAME', '')
         commit('SET_USER_ID', '')
-        removeToken()
+        removeAll()
         resolve()
       })
     }
