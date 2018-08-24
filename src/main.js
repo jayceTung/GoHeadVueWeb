@@ -17,6 +17,11 @@ import '@/permission' // permission control
 
 import FullCalendar from 'vue-full-calendar'
 
+//是否开启mock
+if (process.env.MOCK && true) {
+  require('@/mock')
+}
+
 Vue.use(FullCalendar)
 
 Vue.use(ElementUI)

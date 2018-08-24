@@ -27,7 +27,11 @@ service.interceptors.response.use(
   /**
   * code为非200是抛错 可结合自己业务进行修改
   */
+
     const res = response.data
+    //控制台输出所有的response
+    console.log('response =' + JSON.stringify(res))
+
     if (res.resultCode !== 200) {
       Message({
         message: res.data,
