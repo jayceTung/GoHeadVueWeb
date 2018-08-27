@@ -11,11 +11,14 @@
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu class="user-dropdown" slot="dropdown">
-          <router-link class="inlineBlock" to="/">
-            <el-dropdown-item>
+          <el-dropdown-item>
+            <router-link class="inlineBlock" to="/">
               Home
-            </el-dropdown-item>
-          </router-link>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+              Home
+          </el-dropdown-item>
           <el-dropdown-item divided>
             <span @click="logout" style="display:block;">LogOut</span>
           </el-dropdown-item>
@@ -29,8 +32,10 @@ import { mapGetters } from 'vuex'
 import nxTopLock from '@/components/nx-top-lock'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import ElDropdownItem from '../../../../node_modules/element-ui/packages/dropdown/src/dropdown-item'
 export default {
   components: {
+    ElDropdownItem,
     Breadcrumb,
     Hamburger,
     nxTopLock
@@ -62,10 +67,6 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-      .nx-help {
-        display: inline-block;
-        vertical-align: top;
-    }
   }
   .hamburger-container {
     line-height: 58px;
@@ -83,7 +84,7 @@ export default {
     height: 50px;
     display: inline-block;
     position: absolute;
-    right: 35px;
+    right: 85px;
     .avatar-wrapper {
       cursor: pointer;
       margin-top: 5px;
@@ -100,6 +101,13 @@ export default {
         font-size: 12px;
       }
     }
+  }
+
+  .nx-help {
+    display: block;
+    vertical-align: top;
+    position: absolute;
+    right: 35px;
   }
 }
 </style>
