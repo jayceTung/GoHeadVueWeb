@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.routes)
+    console.log("sidebarItem: = " + this.routes)
   }
 }
 </script>
