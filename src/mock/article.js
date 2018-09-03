@@ -74,13 +74,6 @@ const userMap = {
         "isTop": null,
         "addName": "13",
         "articleContent": null
-      }, {
-        "id": 1044,
-        "articleTitle": "title",
-        "articleCreateDate": "2018-07-12 11:25:28",
-        "isTop": null,
-        "addName": "13",
-        "articleContent": null
       }]
   },
   editor: {
