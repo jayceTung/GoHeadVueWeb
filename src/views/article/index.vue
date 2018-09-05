@@ -82,7 +82,11 @@ export default {
     editArticle(row) {
         console.log('article = ' + row.articleTitle)
         var temp = Object.assign({}, row)
-        console.log('temp = ' + temp)
+        // this.$router.go(-1) 返回前一步
+        this.$router.push({
+            name: 'ArticleEditor',
+            params: row
+        })
     },
     handleDelete(row) {
         console.log('handleDelete = ' + row)
@@ -90,7 +94,7 @@ export default {
         var temp = Object.assign({}, row)
     },
     submitDelete() {
-        
+
     }
   }
 };

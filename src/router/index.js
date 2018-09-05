@@ -1,9 +1,8 @@
+import Layout from '../views/layout/Layout.vue'
 import Vue from 'vue'
 import Router from 'vue-router'
 const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
-
-import Layout from '../views/layout/Layout.vue'
 
 export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
@@ -56,17 +55,25 @@ export const constantRouterMap = [
     path: '/tab',
     name: 'tab',
     component: Layout,
-    meta: { icon: 'example' },
+    meta: {
+      title: 'tab',
+      icon: 'example'
+    },
     children: [
       {
         path: 'index',
         name: 'tab',
         component: () => import('@/views/tab/index'),
         meta: { title: 'tab选项卡', icon: 'form' }
+      },
+      {
+        path: 'ArticleEditor',
+        name: 'ArticleEditor',
+        component: () => import('@/views/form/quillEditor'),
+        meta: { title: 'ArticleEditor', icon: 'form' }
       }
     ]
   },
-  // 表单
   {
     path: '/form',
     component: Layout,
@@ -78,10 +85,10 @@ export const constantRouterMap = [
     },
     children: [
       {
-        path: 'Form',
-        name: 'Form',
+        path: 'table',
+        name: 'table',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: { title: 'table', icon: 'form' }
       },
       {
         path: 'quillEditor',
