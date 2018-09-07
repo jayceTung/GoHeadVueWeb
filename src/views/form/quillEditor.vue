@@ -50,11 +50,19 @@ export default {
     },
     submit() {
       if (!this.article.articleContent) {
-        new Error('请输入内容')
+        this.$message({
+          showClose: true,
+          message: '请输入内容',
+          type: 'warning'
+        });
         return
       }
       if (!this.article.articleTitle) {
-        new Error('请输入标题')
+        this.$message({
+          showClose: true,
+          message: '请输入标题',
+          type: 'warning'
+        });
         return
       }
       if (!this.article.id) {

@@ -47,7 +47,7 @@ export const constantRouterMap = [
         path: 'article',
         name: 'Article',
         component: () => import('@/views/article/index'),
-        meta: {title: '文章', icon: 'table'}
+        meta: {title: '我的文章', icon: 'table'}
       }
     ]
   },
@@ -56,7 +56,7 @@ export const constantRouterMap = [
     name: 'tab',
     component: Layout,
     meta: {
-      title: 'tab',
+      title: '管理',
       icon: 'example'
     },
     children: [
@@ -70,7 +70,7 @@ export const constantRouterMap = [
         path: 'ArticleEditor',
         name: 'ArticleEditor',
         component: () => import('@/views/form/quillEditor'),
-        meta: { title: 'ArticleEditor', icon: 'form' }
+        meta: { title: '文章编辑', icon: 'form' }
       }
     ]
   },
@@ -108,7 +108,7 @@ export const constantRouterMap = [
 ]
 
 export default new Router({
-  mode: 'history', //后端支持可开
+  mode: 'history', // 后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })

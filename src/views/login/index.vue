@@ -41,7 +41,7 @@ export default {
   name: 'login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
+      if (value.length < 5) {
         callback(new Error('请输入正确的用户名'))
       } else {
         callback()
@@ -106,6 +106,8 @@ export default {
     width:100%;
     background-color: $bg;
     input:-webkit-autofill {
+      box-shadow: 0 0 0px 1000px #293444 inset !important;
+      -moz-box-shadow: 0 0 0px 1000px #293444 inset !important;
       -webkit-box-shadow: 0 0 0px 1000px #293444 inset !important;
       -webkit-text-fill-color: #fff !important;
     }

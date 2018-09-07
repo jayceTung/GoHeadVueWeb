@@ -6,10 +6,15 @@ import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth' // 验权
 
 // permissiom judge
-function hasPermission(roles, permissionRoles) {
-  if (roles.indexOf('admin') >= 0) return true // admin权限 直接通过
-  if (!permissionRoles) return true
-  return roles.some(role => permissionRoles.indexOf(role) >= 0)
+function hasPermission (roles, permissionRoles) {
+//   if (roles.length > 0) return true // admin权限 直接通过
+//   if (!permissionRoles) return true
+//   return roles.some(role => permissionRoles.indexOf(role) >= 0)
+  if (roles.length > 0 || !permissionRoles) {
+    return true
+  } else {
+    return false
+  }
 }
 
 // register global progress.
@@ -44,7 +49,8 @@ router.beforeEach((to, from, next) => {
         if (hasPermission(store.getters.roles, to.meta.role)) {
           next()
         } else {
-          next({ path: '/401', query: { noGoBack: true }})
+        // next({ path: '/401', query: { noGoBack: true } })
+          next('/login')
           NProgress.done() // router在hash模式下 手动改变hash 重定向回来 不会触发afterEach 暂时hack方案 ps：history模式下无问题，可删除该行！
         }
       }
