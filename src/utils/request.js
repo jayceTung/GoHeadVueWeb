@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, getUserId } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
@@ -11,11 +11,15 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
-  //输出http url
+  // 输出http url
   console.log('request = ' + config.baseURL + config.url)
 
   if (store.getters.token) {
     config.headers['token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+  }
+
+  if (getUserId()) {
+    config.headers['userId'] = getUserId()
   }
   return config
 }, error => {
@@ -32,7 +36,7 @@ service.interceptors.response.use(
   */
 
     const res = response.data
-    //控制台输出所有的response
+    // 控制台输出所有的response
     console.log('response =' + JSON.stringify(res))
 
     if (res.resultCode !== 200) {

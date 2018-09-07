@@ -18,7 +18,7 @@ import '@/permission' // permission control
 import FullCalendar from 'vue-full-calendar'
 
 //是否开启mock
-if (process.env.MOCK && true) {
+if (process.env.MOCK && false) {
   require('@/mock')
 }
 

@@ -41,7 +41,7 @@
 
 
 <script>
-import { getArticle } from "@/api/article";
+import { getArticle,deleteArcticle } from "@/api/article";
 export default {
   data() {
     return {
@@ -51,7 +51,8 @@ export default {
       total: 0,
       pageNo: 1,
       pageSize: 10,
-    };
+      article: []
+    }
   },
   created() {
     this.fetchData();
@@ -59,13 +60,12 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true;
-      getArticle(this.page, this.pageSize)
+      getArticle(this.pageNo, this.pageSize)
         .then(response => {
           this.listLoading = false
           this.articles = response.data
           this.total = response.total
-        })
-        .catch(error => {
+        }).catch(error => {
           console.error(error);
         });
     },
@@ -91,10 +91,20 @@ export default {
     handleDelete(row) {
         console.log('handleDelete = ' + row)
         this.deleteDialog = true
+        this.article = row
         var temp = Object.assign({}, row)
     },
-    submitDelete() {
-
+    submitDelete(article) {
+        deleteArcticle(this.article)
+            .then(response => {
+                this.deleteDialog = false
+                this.$router.go(0)
+                this.$message.success('提交成功！')
+            }).catch(error => {
+                console.log(error)
+                this.deleteDialog = false
+                this.$message.error('提交失败！')
+            })
     }
   }
 };

@@ -28,9 +28,11 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
+import { updateArticle, addArticle } from '@/api/article'
+import { getUsername } from '@/utils/auth'
 export default {
   name: 'editor',
-  data: function() {
+  data() {
     return {
       content: '',
       editorOption: {
@@ -47,12 +49,42 @@ export default {
       this.content = html
     },
     submit() {
-      console.log(this.content)
-      this.$message.success('提交成功！')
+      if (!this.article.articleContent) {
+        new Error('请输入内容')
+        return
+      }
+      if (!this.article.articleTitle) {
+        new Error('请输入标题')
+        return
+      }
+      if (!this.article.id) {
+        this.article['addName'] = getUsername()
+        addArticle(this.article)
+            .then(response => {
+                this.article = []
+                this.$router.go(0)
+                this.$message.success('提交成功！')
+            }).catch(error => {
+                this.$message.error('提交失败！')
+                console.error(error);
+        });
+       console.log('addArticle')
+      } else {
+         updateArticle(this.article)
+            .then(response => {
+                this.article = []
+                this.$router.push({name:'Article'})
+                this.$message.success('提交成功！')
+            }).catch(error => {
+                this.$message.error('提交失败！')
+                console.log(error)
+            })
+        console.log('updateArticle')
+      }
     }
   },
   mounted: function() {
-      console.log(this.article)
+      console.log('quillEditor = ' + this.article)
   }
 }
 </script>

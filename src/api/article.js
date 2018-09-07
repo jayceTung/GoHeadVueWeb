@@ -9,3 +9,27 @@ export function getArticle (page, pageSize) {
     method: 'get'
   })
 }
+
+export function deleteArcticle (article) {
+  return request({
+    url: '/articles/delete',
+    method: 'delete',
+    data: article
+  })
+}
+
+export function updateArticle (article) {
+  return request({
+    url: '/articles/update',
+    method: 'put',
+    data: article
+  })
+}
+
+export function addArticle (article) {
+  return request({
+    url: '/articles/add',
+    method: 'post',
+    data: article
+  })
+}
