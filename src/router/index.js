@@ -104,6 +104,38 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/usermanage',
+    component: Layout,
+    name: 'usermanage',
+    meta: { title: '用户管理', icon: 'user' },
+    children: [
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/user/manage/index'),
+        meta: { title: '用户列表', icon: 'table' }
+      },
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '用户编辑', icon: 'tree' }
+      },
+      {
+        path: 'fullcalendar',
+        name: 'Fullcalendar',
+        component: () => import('@/views/fullcalendar/fullcalendar'),
+        meta: { title: '日历', icon: 'tree' }
+      },
+      {
+        path: 'article',
+        name: 'Article',
+        component: () => import('@/views/article/index'),
+        meta: {title: '我的文章', icon: 'table'}
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
