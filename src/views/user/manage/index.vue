@@ -3,15 +3,26 @@
         <!-- <div> -->
             <!-- <el-button type="warning" @click="delGroup" :disabled="this.sels.length === 0">删除选中</el-button>disabled值动态显示，默认为true,当选中复选框后值为false -->
         <!-- </div> -->
-        <el-table :data="articles" v-loading="listLoading" element-loading-text="拼命加载中" border style="width: 100%;" @selection-change="selectItem">
+        <el-table :data="userInfos" v-loading="listLoading" element-loading-text="拼命加载中" border style="width: 100%;" @selection-change="selectItem">
             <el-table-column type="selection"  width="40px" align="center"></el-table-column>
             <el-table-column prop="id" label="ID" align="center" width="65px">
             </el-table-column>
-            <el-table-column prop="articleTitle" label="标题" align="center" min-width="150px">
+            <el-table-column prop="userName" label="用户名" align="center" width="80px">
             </el-table-column>
-            <el-table-column prop="articleCreateDate" label="时间" align="center" width="180px">
+            <el-table-column prop="userAvator" label="用户头像" align="center" width="100px" >
+                <template slot-scope="scope">
+                    <img  :src="scope.row.userAvator" alt="" style="width: 70px;height: 70px">
+                </template>
             </el-table-column>
-            <el-table-column prop="operator" label="操作" align="center">
+            <el-table-column prop="phone" label="手机号码" align="center" width="150px">
+            </el-table-column>
+            <el-table-column prop="email" label="电子邮件" align="center" width="180px">
+            </el-table-column>
+            <el-table-column prop="work" label="职业" align="center" width="100px">
+            </el-table-column>
+            <el-table-column prop="user.roleName" label="权限" align="center" width="100px">
+            </el-table-column>
+            <el-table-column prop="operator" label="操作" align="center" min-width="150px">
                 <template slot-scope="scope">
                     <el-button size="small" type="primary" @click="editArticle(scope.row)">编辑</el-button>
                     <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
@@ -45,17 +56,17 @@
 
 
 <script>
-import { getArticle,deleteArcticle } from "@/api/article";
+import { queryUserInfo, deleteUserInfo } from "@/api/login"
 export default {
   data() {
     return {
-      articles: [],
+      userInfos: [],
       deleteDialog: false,
       listLoading: true,
       total: 0,
       pageNo: 1,
       pageSize: 10,
-      article: [],
+      userInfo: [],
       sels: []
     }
   },
@@ -65,10 +76,10 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true;
-      getArticle(this.pageNo, this.pageSize)
+      queryUserInfo(this.pageNo, this.pageSize)
         .then(response => {
           this.listLoading = false
-          this.articles = response.data
+          this.userInfos = response.data
           this.total = response.total
         }).catch(error => {
           console.error(error);
@@ -76,12 +87,10 @@ export default {
     },
     handleSizeChange(val) {
         this.page = val
-        console.log(this.page)
         this.fetchData()
     },
     handleCurrentChange(val) {
         this.page = val
-        console.log(this.page)
         this.fetchData()
     },
     editArticle(row) {
@@ -96,19 +105,19 @@ export default {
     handleDelete(row) {
         console.log('handleDelete = ' + row)
         this.deleteDialog = true
-        this.article = row
+        this.userInfo = row
         var temp = Object.assign({}, row)
     },
-    submitDelete(article) {
-        deleteArcticle(article)
+    submitDelete() {
+        deleteUserInfo(this.userInfo.uid)
             .then(response => {
                 this.deleteDialog = false
                 this.$router.go(0)
-                this.$message.success('提交成功！')
+                this.$message.success('删除成功！')
             }).catch(error => {
                 console.log(error)
                 this.deleteDialog = false
-                this.$message.error('提交失败！')
+                this.$message.error('删除失败！')
             })
     },
     selectItem(sels) {

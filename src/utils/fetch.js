@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '../store'
+// import store from '../store'
 import vue from 'vue'
 // import router from '../router';
 

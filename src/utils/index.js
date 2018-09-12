@@ -1,8 +1,8 @@
 /**
- * Created by jiachenpan on 16/11/18.
+ * Created by super on 16/11/18.
  */
 
-export function parseTime(time, cFormat) {
+export function parseTime (time, cFormat) {
   if (arguments.length === 0) {
     return null
   }
@@ -42,7 +42,7 @@ export function param2Obj(url) {
   return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
 }
 
-export function formatTime(time, option) {
+export function formatTime (time, option) {
   time = +time * 1000
   const d = new Date(time)
   const now = Date.now()
@@ -63,4 +63,14 @@ export function formatTime(time, option) {
   } else {
     return d.getMonth() + 1 + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分'
   }
+}
+
+export function isvalidPhone (str) {
+  const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+  return reg.test(str)
+}
+
+export function isvalidEmail (str) {
+  const reg = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/
+  return reg.test(str)
 }

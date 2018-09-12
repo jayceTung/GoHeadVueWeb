@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getList (params) {
   return request({
     url: '/user/table',
     method: 'get',
@@ -8,7 +8,7 @@ export function getList(params) {
   })
 }
 
-export function getMonth(params) {
+export function getMonth (params) {
   return request({
     url: '/schedule/month',
     method: 'post',
@@ -16,7 +16,7 @@ export function getMonth(params) {
   })
 }
 
-export function updateArticle(data) {
+export function updateArticle (data) {
   return request({
     url: '/article/update',
     method: 'post',

@@ -119,7 +119,7 @@ export const constantRouterMap = [
       {
         path: 'edit',
         name: 'edit',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/user/edit/index'),
         meta: { title: '用户编辑', icon: 'tree' }
       },
       {
