@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { updateUserInfo, addUserInfo } from "@/api/login"
+import { addArticle } from "@/api/article"
 import { isvalidPhone, isvalidEmail } from "@/utils/index"
 
 //定义一个全局的变量，谁用谁知道
@@ -88,26 +88,32 @@ export default {
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {
+          if (!valid) {
               if (!this.userInfo.id) {
-                  this.userinfo['user'] = this.user
-                  addUserInfo(this.addUserInfo).then(response => {
+                  this.user['userName'] = this.userInfo.userName
+                  this.user['password'] = this.userInfo.password
+                  this.user['roleName'] = this.userInfo.roleName
+                  this.userInfo['user'] = this.user
+                  addArticle(this.userInfo).then(response => {
                     this.$notify({
                         title: '成功',
                         message: '提交成功',
                         type: 'success',
                         duration: 2000
                     })
-                  })
+                  }).catch(error => {
+                    this.$message.error('提交失败！')
+                    console.error(error);
+                  });
               } else {
-                  updateUserInfo.then(response => {
-                    this.$notify({
-                        title: '成功',
-                        message: '提交成功',
-                        type: 'success',
-                        duration: 2000
-                    })
-                  })
+                //   updateUserInfo.then(response => {
+                //     this.$notify({
+                //         title: '成功',
+                //         message: '提交成功',
+                //         type: 'success',
+                //         duration: 2000
+                //     })
+                //   })
               }
           } else {
             console.log('error submit!!')
