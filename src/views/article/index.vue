@@ -37,7 +37,7 @@
         <span>确认删除?</span>
         <span slot="footer" class="dialog-footer">
             <el-button @click="deleteDialog = false">取 消</el-button>
-            <el-button type="primary" @click="submitDelete">确 定</el-button>
+            <el-button type="primary" @click="submitDelete(article)">确 定</el-button>
         </span>
     </el-dialog>
     </div>
