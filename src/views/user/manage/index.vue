@@ -98,7 +98,7 @@ export default {
         var temp = Object.assign({}, row)
         // this.$router.go(-1) 返回前一步
         this.$router.push({
-            name: 'ArticleEditor',
+            name: 'UserEdit',
             params: row
         })
     },

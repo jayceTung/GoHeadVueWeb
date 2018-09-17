@@ -11,7 +11,7 @@
                 <el-input v-model.trim="userInfo.userAvator" style="width: 600px" placeholder="请输入头像链接"></el-input>
             </el-form-item>
             <el-form-item label="手机号码" prop="phone">
-                <el-input type="ph" v-model.trim="userInfo.phone" style="width: 250px" placeholder="请输入手机号码"></el-input>
+                <el-input v-model.trim="userInfo.phone" style="width: 250px" placeholder="请输入手机号码"></el-input>
             </el-form-item>
             <el-form-item label="电子邮箱" prop="email">
                 <el-input v-model.trim="userInfo.email" style="width: 250px" placeholder="请输入电子邮箱"></el-input>
@@ -23,14 +23,14 @@
                 <el-switch v-model="userInfo.roleName" active-value="admin" inactive-value="user"></el-switch>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('userInfo')">立即创建</el-button>
+                <el-button type="primary" @click="submitForm('userInfo', userInfo, user)">提交</el-button>
                 <el-button @click="resetForm('userInfo')">重置</el-button>
             </el-form-item>
       </el-form>
   </div>
 </template>
 <script>
-import { addArticle } from "@/api/article"
+import { addUserInfo, updateUserInfo } from "@/api/login"
 import { isvalidPhone, isvalidEmail } from "@/utils/index"
 
 //定义一个全局的变量，谁用谁知道
@@ -57,10 +57,8 @@ var vaildEmail = (rule, value, callback) => {
 export default {
     data() {
       return {
-        userInfo: {
-        },
-        user: {
-        },
+        userInfo: this.$route.params,
+        user: this.userInfo.user,
         rules: {
           userName: [
             { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -86,15 +84,20 @@ export default {
       }
     },
     methods: {
-      submitForm(formName) {
+      submitForm(formName, userInfo, user) {
         this.$refs[formName].validate((valid) => {
-          if (!valid) {
-              if (!this.userInfo.id) {
-                  this.user['userName'] = this.userInfo.userName
-                  this.user['password'] = this.userInfo.password
-                  this.user['roleName'] = this.userInfo.roleName
-                  this.userInfo['user'] = this.user
-                  addArticle(this.userInfo).then(response => {
+          if (valid) {
+            user['userName'] = userInfo.userName
+            this.user['password'] = userInfo.password
+            this.user['roleName'] = userInfo.roleName
+              if (!userInfo.id) {
+                  userInfo['user'] = user
+                  var userInfoTemp = JSON.parse(JSON.stringify(userInfo));
+                  delete userInfoTemp.password
+                  delete userInfoTemp.roleName
+                  addUserInfo(userInfoTemp).then(response => {
+                    this.$refs[formName].resetFields()
+                    this.$router.go(0)
                     this.$notify({
                         title: '成功',
                         message: '提交成功',
@@ -102,18 +105,26 @@ export default {
                         duration: 2000
                     })
                   }).catch(error => {
+                    this.$refs[formName].resetFields()
                     this.$message.error('提交失败！')
-                    console.error(error);
-                  });
+                    console.log(error.response);
+                  })
               } else {
-                //   updateUserInfo.then(response => {
-                //     this.$notify({
-                //         title: '成功',
-                //         message: '提交成功',
-                //         type: 'success',
-                //         duration: 2000
-                //     })
-                //   })
+                  user['id'] = userInfo.uid
+                  userInfo['user'] = user
+                  var userInfoTemp = JSON.parse(JSON.stringify(userInfo));
+                  delete userInfoTemp.password
+                  delete userInfoTemp.roleName
+                  updateUserInfo(userInfoTemp).then(response => {
+                    this.$refs[formName].resetFields()
+                    this.$router.push({name:'UserList'})
+                    this.$notify({
+                        title: '成功',
+                        message: '提交成功',
+                        type: 'success',
+                        duration: 2000
+                    })
+                  })
               }
           } else {
             console.log('error submit!!')
@@ -126,7 +137,9 @@ export default {
       }
     },
     mounted: function() {
-
+      if (this.userInfo.id) {
+//        this.userInfo['password'] = this.user.password
+      }
     }
   }
 </script>

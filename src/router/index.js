@@ -111,14 +111,14 @@ export const constantRouterMap = [
     meta: { title: '用户管理', icon: 'user' },
     children: [
       {
-        path: 'list',
-        name: 'list',
+        path: 'UserList',
+        name: 'UserList',
         component: () => import('@/views/user/manage/index'),
         meta: { title: '用户列表', icon: 'table' }
       },
       {
-        path: 'edit',
-        name: 'edit',
+        path: 'UserEdit',
+        name: 'UserEdit',
         component: () => import('@/views/user/edit/index'),
         meta: { title: '用户编辑', icon: 'tree' }
       },
