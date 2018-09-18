@@ -58,7 +58,7 @@ export default {
     data() {
       return {
         userInfo: this.$route.params,
-        user: this.userInfo.user,
+        user: {},
         rules: {
           userName: [
             { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -134,12 +134,11 @@ export default {
       },
       resetForm(formName) {
         this.$refs[formName].resetFields()
+        this.userInfo = {}
+        this.user = {}
       }
     },
     mounted: function() {
-      if (this.userInfo.id) {
-//        this.userInfo['password'] = this.user.password
-      }
     }
   }
 </script>
