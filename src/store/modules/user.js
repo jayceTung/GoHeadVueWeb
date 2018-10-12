@@ -8,7 +8,7 @@ const user = {
     name: getUsername(),
     avatar: getAvatar(),
     roles: getRoles(),
-    userId: getUserId,
+    userId: getUserId()
   },
 
   mutations: {

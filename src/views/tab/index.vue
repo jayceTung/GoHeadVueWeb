@@ -71,10 +71,12 @@
 </template>
 
 <script>
+    import { getUserId } from '@/utils/auth'
     export default {
       name: 'tabs',
       data() {
         return {
+          websocket: null,
           message: 'first',
           showHeader: false,
           unread: [{
@@ -91,7 +93,7 @@
           recycle: [{
             date: '2018-04-19 20:00:00',
             title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-          }]
+          }],
         }
       },
       methods: {
@@ -99,6 +101,7 @@
           const item = this.unread.splice(index, 1)
           console.log(item)
           this.read = item.concat(this.read)
+          this.websocketsend('你好')
         },
         handleDel(index) {
           const item = this.read.splice(index, 1)
@@ -107,15 +110,45 @@
         handleRestore(index) {
           const item = this.recycle.splice(index, 1)
           this.read = item.concat(this.read)
-        }
+        },
+        initWebSocket() {
+          const wsuri = process.env.WS_API + '/websocket/' + getUserId()
+          this.websock = new WebSocket(wsuri)
+          this.websock.onopen = this.websocketonopen
+          this.websock.onerror = this.websocketonerror
+          this.websock.onmessage = this.websocketonmessage 
+          this.websock.onclose = this.websocketclose
+        },
+        websocketonopen() {
+          console.log('WebSocket连接成功')
+        },
+        websocketonerror() {
+          console.log('WebSocket连接错误')
+        },
+        websocketonmessage(e){ //数据接收
+          console.log('socket数据接收:' + e.data)
+        },
+        websocketsend(agentData){//数据发送
+          this.websock.send(agentData)
+        },
+        websocketclose(){ //关闭
+          this.websock.close()
+　　　　　},
       },
       computed: {
         unreadNum() {
           return this.unread.length
         }
+      },
+      created(){
+        //页面刚进入时开启长连接
+        this.initWebSocket()
+      },
+      destroyed() {
+        //页面销毁时关闭长连接
+        this.websocketclose()
       }
     }
-
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
