@@ -19,6 +19,66 @@ export const constantRouterMap = [
     }]
   },
   {
+    path: '/usermanage',
+    component: Layout,
+    name: 'usermanage',
+    meta: { title: '用户管理', icon: 'user' },
+    children: [
+      {
+        path: 'UserList',
+        name: 'UserList',
+        component: () => import('@/views/user/manage/index'),
+        meta: { title: '用户列表', icon: 'table' }
+      },
+      {
+        path: 'UserEdit',
+        name: 'UserEdit',
+        component: () => import('@/views/user/edit/index'),
+        meta: { title: '用户编辑', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/articelmanage',
+    component: Layout,
+    name: 'articelmanage',
+    meta: {
+      title: '文章管理',
+      icon: 'form'
+    },
+    children: [
+      {
+        path: 'article',
+        name: 'Article',
+        component: () => import('@/views/article/index'),
+        meta: {title: '我的文章', icon: 'documentation'}
+      },
+      {
+        path: 'ArticleEditor',
+        name: 'ArticleEditor',
+        component: () => import('@/views/form/quillEditor'),
+        meta: { title: '文章编辑', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/tab',
+    name: 'tab',
+    component: Layout,
+    meta: {
+      title: '管理',
+      icon: 'example'
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'tab',
+        component: () => import('@/views/tab/index'),
+        meta: { title: 'tab选项卡', icon: 'form' }
+      }
+    ]
+  },
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
@@ -52,29 +112,6 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/tab',
-    name: 'tab',
-    component: Layout,
-    meta: {
-      title: '管理',
-      icon: 'example'
-    },
-    children: [
-      {
-        path: 'index',
-        name: 'tab',
-        component: () => import('@/views/tab/index'),
-        meta: { title: 'tab选项卡', icon: 'form' }
-      },
-      {
-        path: 'ArticleEditor',
-        name: 'ArticleEditor',
-        component: () => import('@/views/form/quillEditor'),
-        meta: { title: '文章编辑', icon: 'form' }
-      }
-    ]
-  },
-  {
     path: '/form',
     component: Layout,
     redirect: '/table/BaseForm',
@@ -101,38 +138,6 @@ export const constantRouterMap = [
         name: 'tinymce',
         component: () => import('@/views/form/tinymce'),
         meta: { title: 'tinymce', icon: 'form' }
-      }
-    ]
-  },
-  {
-    path: '/usermanage',
-    component: Layout,
-    name: 'usermanage',
-    meta: { title: '用户管理', icon: 'user' },
-    children: [
-      {
-        path: 'UserList',
-        name: 'UserList',
-        component: () => import('@/views/user/manage/index'),
-        meta: { title: '用户列表', icon: 'table' }
-      },
-      {
-        path: 'UserEdit',
-        name: 'UserEdit',
-        component: () => import('@/views/user/edit/index'),
-        meta: { title: '用户编辑', icon: 'tree' }
-      },
-      {
-        path: 'fullcalendar',
-        name: 'Fullcalendar',
-        component: () => import('@/views/fullcalendar/fullcalendar'),
-        meta: { title: '日历', icon: 'tree' }
-      },
-      {
-        path: 'article',
-        name: 'Article',
-        component: () => import('@/views/article/index'),
-        meta: {title: '我的文章', icon: 'table'}
       }
     ]
   },
